@@ -1,4 +1,5 @@
 package demo1;
 
-public class Fu {
+public abstract class Fu {
+    public abstract void eat();
 }
