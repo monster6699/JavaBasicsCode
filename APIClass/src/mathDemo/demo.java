@@ -33,6 +33,14 @@ public class demo {
         String ss = Arrays.toString(a);
         System.out.println(ss); // [2, 3, 5, 6, 10, 49]
 
-
+        int num = 10;
+        String s1 = String.valueOf(num); //class java.lang.String
+        System.out.println(s1); // 10
+        System.out.println(s1.getClass()); // 10
+        String str1 = "123";
+        Integer integer = Integer.valueOf(str1);
+        System.out.println(integer.getClass()); //class java.lang.Integer
+        int i = Integer.parseInt(str1);
+        System.out.println(i); // 123
     }
 }
