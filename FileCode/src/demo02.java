@@ -13,7 +13,7 @@ public class demo02 {
         System.out.println(file2.mkdirs()); //成功：true 失败：false
 
         File file3 = new File("C://Download/bb/a.txt");
-        System.out.println(file3.createNewFile()); //成功：true 失败：false
+        System.out.println(file3.createNewFile()); //失败：false
 
 
 
