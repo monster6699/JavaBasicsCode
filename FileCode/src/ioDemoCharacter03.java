@@ -22,7 +22,7 @@ public class ioDemoCharacter03 {
 
         OutputStreamWriter outputStreamWriter2 = new OutputStreamWriter(new FileOutputStream("FileCode/d.txt"));
         // 方式4
-        outputStreamWriter2.write("asdfdgfhgjkl;");
+        outputStreamWriter2.write("asdfdgfhgjkl;\r\n");
         // 方式5
         outputStreamWriter2.write("asdfdgfhgjkl;", 1 , 5);
         outputStreamWriter2.flush();
