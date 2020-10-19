@@ -6,12 +6,14 @@ public class ioDemoCharacter06 {
     public static void main(String[] args) throws IOException {
         FileReader fileReader = new FileReader("FileCode/ioDemoCharacter04.java");
         FileWriter fileWriter = new FileWriter("FileCode/copy.java");
-
+        //方式1
 //        int ch;
 //        while ((ch=fileReader.read()) != -1) {
 //            fileWriter.write(ch);
 //        }
 
+
+        // 方式2
         char[] chars = new char[1024];
         int len;
         while ((len=fileReader.read(chars)) != -1) {
