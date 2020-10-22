@@ -1,8 +1,11 @@
-public class Student {
-    private String nid;
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private transient String nid;
     private String name;
     private int age;
     private String address;
+    private static final long serialVersionUID = 42L;
 
     public Student(String nid, String name, int age, String address) {
         this.nid = nid;
@@ -45,4 +48,14 @@ public class Student {
     public void setAddress(String address) {
         this.address = address;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Student{" +
+//                "nid='" + nid + '\'' +
+//                ", name='" + name + '\'' +
+//                ", age=" + age +
+//                ", address='" + address + '\'' +
+//                '}';
+//    }
 }
