@@ -17,10 +17,5 @@ public class demo06 {
         for (int i = 0; i < 10; i++) {
             System.out.println(Thread.currentThread().getName() + ": " + i);
         }
-
-
-
-
-
     }
 }
