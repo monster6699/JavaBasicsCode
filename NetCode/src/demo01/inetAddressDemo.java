@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 
 public class inetAddressDemo {
     public static void main(String[] args) throws UnknownHostException {
-        InetAddress byName = InetAddress.getByName("192.168.0.12");
+        InetAddress byName = InetAddress.getByName("192.168.175.1");
         String hostName = byName.getHostName();
         String hostAddress = byName.getHostAddress();
         System.out.println(hostName);
