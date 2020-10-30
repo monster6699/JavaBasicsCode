@@ -16,6 +16,9 @@ public class EableMain {
             System.out.println("吃橘子");
         });
 
+        useEable(() -> System.out.println("吃橘子------"));
+
+
     }
 
     public static void useEable(EableInf able) {
