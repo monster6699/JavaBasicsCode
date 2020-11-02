@@ -13,7 +13,7 @@ public class MyInterfacMain {
         // lambda表达式实现
         useCovert(s -> Integer.parseInt(s));
 
-        // 引用类方法实现
+        // 引用类(静态)方法实现
         useCovert(Integer::parseInt);
     }
     public static void useCovert(MyInterface myInterface) {

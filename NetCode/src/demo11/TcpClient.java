@@ -19,7 +19,6 @@ public class TcpClient {
 
         socket.shutdownOutput();
 
-
         BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String s = bufferedReader1.readLine();
         System.out.println(s);

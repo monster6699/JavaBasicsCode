@@ -21,8 +21,5 @@ public class TcpServer {
         bufferedWriter.close();
         serverSocket.close();
 
-
-
-
     }
 }
