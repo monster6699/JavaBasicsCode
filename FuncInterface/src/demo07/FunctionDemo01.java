@@ -25,7 +25,6 @@ public class FunctionDemo01 {
         System.out.println(s);
     }
 
-
     // 综合写
     private static void convert(String s, Function<String, Integer> fun1, Function<Integer, String> fun2) {
         String apply = fun1.andThen(fun2).apply(s);

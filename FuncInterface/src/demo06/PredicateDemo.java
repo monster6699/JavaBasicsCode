@@ -11,7 +11,7 @@ public class PredicateDemo {
         System.out.println(b2);
         // and
         System.out.println(useAndPredicate("helloAnd", s->s.equals("aaa"), s-> s.length() > 3));
-        //or
+        // or
         System.out.println(useOrPredicate("helloOr", s->s.equals("aaa"), s-> s.length() > 3));
 
     }
@@ -23,6 +23,7 @@ public class PredicateDemo {
     private static boolean usePredicate(String s, Predicate<String> predicate){
         return predicate.negate().test(s);
     }
+
 
     private static boolean useAndPredicate(String s, Predicate<String> pre1, Predicate<String> pre2){
         return pre1.and(pre2).test(s);
