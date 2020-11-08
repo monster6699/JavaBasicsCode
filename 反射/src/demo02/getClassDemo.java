@@ -1,5 +1,7 @@
 package demo02;
 
+import demo03.Student;
+
 public class getClassDemo {
     /*
     1.使用类的class属性来获取该类对应的Class对象。举例：Student.class将会返回Student类对应的Class对象
