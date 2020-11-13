@@ -13,8 +13,7 @@ public class TestDemo {
         Properties properties = new Properties();
         FileReader fileReader = new FileReader("反射/prop.txt");
         properties.load(fileReader);
-        fileReader.close();
-
+        System.out.println(properties.getProperty("ClassName"));
         Class<?> aClass= Class.forName(properties.getProperty("ClassName"));
         Constructor<?> constructor = aClass.getConstructor();
         Object o = constructor.newInstance();
