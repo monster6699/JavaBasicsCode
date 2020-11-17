@@ -3,7 +3,6 @@ package DataSourceCode;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,7 +30,12 @@ public class DruidUntil {
         return dataSource.getConnection();
     }
 
-    public static void close(Statement statement, Connection connection) {
+    public static DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public static void close(Statement statement, Connection connection)
+    {
         close(null, statement, connection);
     }
 
