@@ -14,26 +14,24 @@ public class JDBCUntil {
     static {
         Class<JDBCUntil> jdbcUntilClass = JDBCUntil.class;
         ClassLoader classLoader = jdbcUntilClass.getClassLoader();
-        URL resource = classLoader.getResource("libs");
+        URL resource = classLoader.getResource("jdbc.properties");
+        assert resource != null;
         String path = resource.getPath();
-        System.out.println(path);
-//        Properties properties = new Properties();
-//        try {
-//            properties.load(new FileReader(path));
-//            String driver = properties.getProperty("Driver");
-//            user = properties.getProperty("user");
-//            url = properties.getProperty("url");
-//            password = properties.getProperty("password");
-//            Class.forName(driver);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(path));
+            String driver = properties.getProperty("Driver");
+            user = properties.getProperty("user");
+            url = properties.getProperty("url");
+            password = properties.getProperty("password");
+            Class.forName(driver);
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static Connection getConnection() {
+    static Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, user, password);
