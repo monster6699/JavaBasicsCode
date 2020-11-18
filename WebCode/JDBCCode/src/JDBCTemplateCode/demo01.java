@@ -10,7 +10,7 @@ public class demo01 {
     public static void main(String[] args) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(DruidUntil.getDataSource());
         String updateSql = "update admin_role set remark = ? where id = ? ";
-        int update = jdbcTemplate.update(updateSql, "人生苦短，我用Python333", 17);
+        int update = jdbcTemplate.update(updateSql, "人生苦短，我用Python", 17);
         if (update > 0) {
             System.out.println("更新成功");
         } else {
@@ -23,6 +23,10 @@ public class demo01 {
         ) {
             System.out.println(map);
         }
+
+        String sql1 = "select * from admin_role where id =1";
+        Map<String, Object> stringObjectMap = jdbcTemplate.queryForMap(sql1);
+        System.out.println(stringObjectMap);
 
 
     }
