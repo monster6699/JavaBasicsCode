@@ -32,7 +32,7 @@ public class demo03 {
             preparedStatement2.setString(2, name2);
 
             preparedStatement1.executeUpdate();
-//            int a = 1/0;
+            // int a = 1/0;
             preparedStatement2.executeUpdate();
             // 提交事务
             connection.commit();
