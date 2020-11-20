@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
-@WebServlet("/Demo07")
+@WebServlet("/Demo08")
 public class Demo08 extends HttpServlet {
     /*
     2. 通用功能：
