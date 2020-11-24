@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>下载文件</title>
   </head>
   <body>
-  hello ,tomcat idea!
+  <a href="/respDemo06?fileName=哪吒.jpg">下载文件</a>
   </body>
 </html>
