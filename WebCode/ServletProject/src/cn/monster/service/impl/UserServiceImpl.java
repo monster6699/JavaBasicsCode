@@ -9,12 +9,11 @@ import cn.monster.service.UserService;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+    private UserDao userDao = new UserDaoImpl();
     @Override
     public List<User> findAll() {
         try {
-            UserDao userDao = new UserDaoImpl();
-            List<User> users = userDao.findAll();
-            return users;
+            return  userDao.findAll();
         } catch (Exception e) {
             return null;
         }
@@ -23,11 +22,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLogin findUserLogin(UserLogin userLogin) {
         try {
-            UserDao userDao = new UserDaoImpl();
-            UserLogin user = userDao.findUserLogin(userLogin);
-            return user;
+
+            return userDao.findUserLogin(userLogin);
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public Boolean addUser(User user) {
+        return userDao.addUser(user);
+    }
+
+    @Override
+    public Boolean delete(String id) {
+        return userDao.delete(id);
+    }
+
+    @Override
+    public User userSelect(String id) {
+        return userDao.select(id);
+    }
+
+    @Override
+    public Boolean update(User user) {
+        return userDao.update(user);
     }
 }
