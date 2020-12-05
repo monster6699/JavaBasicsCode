@@ -17,4 +17,8 @@ public interface UserDao {
     User select(String id);
 
     Boolean update(User user);
+
+    int findTotalCount();
+
+    List<User> findUserPageList(int start, int rows);
 }

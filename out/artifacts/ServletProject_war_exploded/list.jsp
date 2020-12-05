@@ -28,6 +28,58 @@
             text-align: center;
         }
     </style>
+
+    <script>
+        function deleteUser(id){
+            //用户安全提示
+            if(confirm("您确定要删除吗？")){
+                //访问路径
+                location.href="${pageContext.request.contextPath}/userDelSelectServlet?id="+id;
+            }
+        }
+
+        window.onload = function(){
+            //给删除选中按钮添加单击事件
+            document.getElementById("delSelected").onclick = function(){
+                if(confirm("您确定要删除选中条目吗？")){
+
+                    var flag = false;
+                    //判断是否有选中条目
+                    var cbs = document.getElementsByName("uid");
+                    for (var i = 0; i < cbs.length; i++) {
+                        if(cbs[i].checked){
+                            //有一个条目选中了
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if(flag){//有条目被选中
+                        //表单提交
+                        document.getElementById("form").submit();
+                    }
+
+                }
+
+            }
+            //1.获取第一个cb
+            document.getElementById("firstCb").onclick = function(){
+                //2.获取下边列表中所有的cb
+                var cbs = document.getElementsByName("uid");
+                //3.遍历
+                for (var i = 0; i < cbs.length; i++) {
+                    //4.设置这些cbs[i]的checked状态 = firstCb.checked
+                    cbs[i].checked = this.checked;
+
+                }
+
+            }
+
+
+        }
+
+
+    </script>
 </head>
 <body>
 <div class="container">
@@ -35,19 +87,19 @@
 
     <div style="float: left;">
 
-        <form class="form-inline">
+        <form class="form-inline" action="${pageContext.request.contextPath}/UserSelectByPageServlet" method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" class="form-control" id="exampleInputName2" >
+                <input type="text" name="name" value="${condition.name[0]}" class="form-control" id="exampleInputName2" >
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">籍贯</label>
-                <input type="text" class="form-control" id="exampleInputName3" >
+                <input type="text" name="address" value="${condition.address[0]}" class="form-control" id="exampleInputName3" >
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail2">邮箱</label>
-                <input type="email" class="form-control" id="exampleInputEmail2"  >
+                <input type="text" name="email" value="${condition.email[0]}" class="form-control" id="exampleInputEmail2"  >
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
@@ -56,61 +108,89 @@
 
     <div style="float: right;margin: 5px;">
 
-        <a class="btn btn-primary" href="add.jsp">添加联系人</a>
-        <a class="btn btn-primary" href="add.jsp">删除选中</a>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/add.jsp">添加联系人</a>
+        <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
 
     </div>
-
-    <table border="1" class="table table-bordered table-hover">
-        <tr class="success">
-            <th><input type="checkbox"></th>
-            <th>编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>籍贯</th>
-            <th>QQ</th>
-            <th>邮箱</th>
-            <th>操作</th>
-        </tr>
-
-        <c:forEach items="${users}" var="user" varStatus="s">
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>${s.count}</td>
-                <td>${user.name}</td>
-                <td>${user.gender}</td>
-                <td>${user.age}</td>
-                <td>${user.address}</td>
-                <td>${user.qq}</td>
-                <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/userSelectServlet?id=${user.id}">修改</a>&nbsp;<a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/userDeleteServlet?id=${user.id}">删除</a></td>
+    <form id="form" action="${pageContext.request.contextPath}/userDelSelectServlet" method="post">
+        <table border="1" class="table table-bordered table-hover">
+            <tr class="success">
+                <th><input type="checkbox" id="firstCb"></th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>籍贯</th>
+                <th>QQ</th>
+                <th>邮箱</th>
+                <th>操作</th>
             </tr>
 
-        </c:forEach>
+            <c:forEach items="${pb.list}" var="user" varStatus="s">
+                <tr>
+                    <td><input type="checkbox" name="uid" value="${user.id}"></td>
+                    <td>${s.count}</td>
+                    <td>${user.name}</td>
+                    <td>${user.gender}</td>
+                    <td>${user.age}</td>
+                    <td>${user.address}</td>
+                    <td>${user.qq}</td>
+                    <td>${user.email}</td>
+                    <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/userUpdateServlet?id=${user.id}">修改</a>&nbsp;
+                        <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>
+                </tr>
+
+            </c:forEach>
 
 
-    </table>
+        </table>
+    </form>
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
+                <c:if test="${pb.currentPage == 1}">
+                <li class="disabled">
+                    </c:if>
+
+                    <c:if test="${pb.currentPage != 1}">
                 <li>
-                    <a href="#" aria-label="Previous">
+                    </c:if>
+
+
+                    <a href="${pageContext.request.contextPath}/userSelectByPageServlet?currentPage=${pb.currentPage - 1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                <span style="font-size: 25px;margin-left: 5px;">
-                    共16条记录，共4页
+
+
+                <c:forEach begin="1" end="${pb.totalPage}" var="i" >
+
+
+                    <c:if test="${pb.currentPage == i}">
+                        <li class="active"><a href="${pageContext.request.contextPath}/userSelectByPageServlet?currentPage=${i}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}">${i}</a></li>
+                    </c:if>
+                    <c:if test="${pb.currentPage != i}">
+                        <li><a href="${pageContext.request.contextPath}/userSelectByPageServlet?currentPage=${i}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}">${i}</a></li>
+                    </c:if>
+
+                </c:forEach>
+
+                <c:if test="${pb.currentPage == pb.totalPage}">
+                    <li class="disabled">
+                        <a href="${pageContext.request.contextPath}/userSelectByPageServlet?currentPage=${pb.currentPage + 1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                <c:if test="${pb.currentPage != pb.totalPage}">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/userSelectByPageServlet?currentPage=${pb.currentPage + 1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                    <span style="font-size: 25px;margin-left: 5px;">
+                    共${pb.totalCount}条记录，共${pb.totalPage}页
                 </span>
 
             </ul>

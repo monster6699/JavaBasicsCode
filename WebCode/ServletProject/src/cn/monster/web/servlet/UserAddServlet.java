@@ -33,6 +33,7 @@ public class UserAddServlet extends HttpServlet {
         if(aBoolean) {
             response.sendRedirect(request.getContextPath() + "/userServlet");
         } else {
+            response.setContentType("text/html;charset=utf-8");
             response.getWriter().write("添加失败");
         }
 

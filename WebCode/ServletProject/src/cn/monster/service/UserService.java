@@ -1,5 +1,6 @@
 package cn.monster.service;
 
+import cn.monster.domain.PageBean;
 import cn.monster.domain.User;
 import cn.monster.domain.UserLogin;
 
@@ -16,4 +17,8 @@ public interface UserService {
     User userSelect(String id);
 
     Boolean update(User user);
+
+    Boolean delSelect(String[] uids);
+
+    PageBean<User> findUserSelectPage(String currentPage, String rows);
 }

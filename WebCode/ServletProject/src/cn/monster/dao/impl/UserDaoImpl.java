@@ -29,6 +29,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Boolean addUser(User user) {
         String sql = "insert into user values(null, ?, ?, ?, ?, ?, ?)";
+        System.out.println(user);
         int update = jdbcTemplate.update(sql, user.getName(), user.getGender(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail());
         return update > 0 ? true : false;
     }
@@ -51,6 +52,21 @@ public class UserDaoImpl implements UserDao {
     public Boolean update(User user) {
         String sql = "update user set name=?, gender=?, age=?, address=?, qq=?, email=? where id= ?";
         int update = jdbcTemplate.update(sql, user.getName(),user.getGender(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail(), user.getId());
+        System.out.println(update);
         return update > 0 ? true : false;
+    }
+
+    @Override
+    public int findTotalCount() {
+        String sql = "select count(*) from user";
+        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
+        System.out.println(integer);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public List<User> findUserPageList(int start, int rows) {
+        String sql = "select * from user limit ?, ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class), start, rows);
     }
 }
