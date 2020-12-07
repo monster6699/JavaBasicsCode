@@ -7,7 +7,7 @@ import cn.monster.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.List;
+import java.util.*;
 
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDataSource());
@@ -57,16 +57,42 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int findTotalCount() {
-        String sql = "select count(*) from user";
-        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
-        System.out.println(integer);
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+    public int findTotalCount(Map<String, String[]> parameterMap) {
+        String sql = "select count(*) from user where 1 = 1";
+        StringBuilder sqlString = new StringBuilder(sql);
+        ArrayList<Object> paramsValue = new ArrayList<Object>();
+        Set<String> strings = parameterMap.keySet();
+        for (String key : strings) {
+            if("currentPage".equals(key) || "rows".equals(key)) {
+                continue;
+            }
+            if( !"".equals(parameterMap.get(key)[0])) {
+                sqlString.append(" and " + key + " like ? ");
+                paramsValue.add("%" + parameterMap.get(key)[0] + "%");
+            }
+
+        }
+        return jdbcTemplate.queryForObject(sqlString.toString(), Integer.class, paramsValue.toArray());
     }
 
     @Override
-    public List<User> findUserPageList(int start, int rows) {
-        String sql = "select * from user limit ?, ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class), start, rows);
+    public List<User> findUserPageList(int start, int rows, Map<String, String[]> parameterMap) {
+        String sql = "select * from user where 1 = 1";
+        StringBuilder sqlString = new StringBuilder(sql);
+        ArrayList<Object> paramsValue = new ArrayList<Object>();
+        Set<String> strings = parameterMap.keySet();
+        for (String key : strings) {
+            if("currentPage".equals(key) || "rows".equals(key)) {
+                continue;
+            }
+            if( !"".equals(parameterMap.get(key)[0])) {
+                sqlString.append(" and " + key + " like ? ");
+                paramsValue.add("%" + parameterMap.get(key)[0] + "%");
+            }
+        }
+        sqlString.append(" limit ?, ?");
+        paramsValue.add(start);
+        paramsValue.add(rows);
+        return jdbcTemplate.query(sqlString.toString(), new BeanPropertyRowMapper<User>(User.class), paramsValue.toArray());
     }
 }

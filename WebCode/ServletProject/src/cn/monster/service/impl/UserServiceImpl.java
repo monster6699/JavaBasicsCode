@@ -8,6 +8,7 @@ import cn.monster.domain.UserLogin;
 import cn.monster.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
     private UserDao userDao = new UserDaoImpl();
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageBean<User> findUserSelectPage(String _currentPage, String _rows) {
+    public PageBean<User> findUserSelectPage(String _currentPage, String _rows, Map<String, String[]> parameterMap) {
         int currentPage = Integer.parseInt(_currentPage);
         int rows = Integer.parseInt(_rows);
         if(currentPage<=0) {
@@ -75,18 +76,16 @@ public class UserServiceImpl implements UserService {
         PageBean<User> userPageBean = new PageBean<>();
 
         userPageBean.setRows(rows);
-        int totalCount = userDao.findTotalCount();
+        int totalCount = userDao.findTotalCount(parameterMap);
         userPageBean.setTotalCount(totalCount);
         int totalPage = totalCount % rows == 0 ? totalCount / rows : (totalCount / rows) + 1;
         if(currentPage > totalPage) {
             currentPage = totalPage;
         }
         int start = (currentPage - 1) * rows;
-
-
         userPageBean.setCurrentPage(currentPage);
         userPageBean.setTotalPage(totalPage);
-        List<User> list = userDao.findUserPageList(start, rows);
+        List<User> list = userDao.findUserPageList(start, rows, parameterMap);
         userPageBean.setList(list);
         return userPageBean;
     }

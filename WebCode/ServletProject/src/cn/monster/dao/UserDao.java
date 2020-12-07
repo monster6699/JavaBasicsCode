@@ -1,10 +1,10 @@
 package cn.monster.dao;
 
-import cn.monster.dao.impl.UserDaoImpl;
 import cn.monster.domain.User;
 import cn.monster.domain.UserLogin;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
     List<User> findAll();
@@ -18,7 +18,7 @@ public interface UserDao {
 
     Boolean update(User user);
 
-    int findTotalCount();
+    int findTotalCount(Map<String, String[]> parameterMap);
 
-    List<User> findUserPageList(int start, int rows);
+    List<User> findUserPageList(int start, int rows, Map<String, String[]> parameterMap);
 }

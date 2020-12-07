@@ -5,6 +5,7 @@ import cn.monster.domain.User;
 import cn.monster.domain.UserLogin;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     List<User> findAll();
@@ -20,5 +21,5 @@ public interface UserService {
 
     Boolean delSelect(String[] uids);
 
-    PageBean<User> findUserSelectPage(String currentPage, String rows);
+    PageBean<User> findUserSelectPage(String currentPage, String rows, Map<String, String[]> parameterMap);
 }

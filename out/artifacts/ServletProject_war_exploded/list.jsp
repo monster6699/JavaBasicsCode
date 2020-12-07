@@ -87,7 +87,7 @@
 
     <div style="float: left;">
 
-        <form class="form-inline" action="${pageContext.request.contextPath}/UserSelectByPageServlet" method="post">
+        <form class="form-inline" action="${pageContext.request.contextPath}/userSelectByPageServlet" method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
                 <input type="text" name="name" value="${condition.name[0]}" class="form-control" id="exampleInputName2" >
