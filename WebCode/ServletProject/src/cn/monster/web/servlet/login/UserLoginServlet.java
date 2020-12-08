@@ -44,7 +44,8 @@ public class UserLoginServlet extends HttpServlet {
         UserLogin user = userService.findUserLogin(userLogin);
         if(user != null) {
             session.setAttribute("user", userLogin);
-            request.getRequestDispatcher("/userSelectByPageServlet").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+//            request.getRequestDispatcher("/userSelectByPageServlet").forward(request, response);
         } else {
             request.setAttribute("msg", "用户或者密码错误");
             request.getRequestDispatcher("/login.jsp").forward(request, response);

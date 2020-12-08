@@ -31,7 +31,7 @@ public class UserUpdateServlet extends HttpServlet {
         UserService userService = new UserServiceImpl();
         Boolean update = userService.update(user);
         if(update) {
-            response.sendRedirect(request.getContextPath() + "/userServlet");
+            response.sendRedirect(request.getContextPath() + "/userSelectByPageServlet");
         } else {
             response.getWriter().write("修改失败");
         }

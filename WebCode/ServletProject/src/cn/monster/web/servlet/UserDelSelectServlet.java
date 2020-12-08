@@ -18,7 +18,7 @@ public class UserDelSelectServlet extends HttpServlet {
         UserService userService = new UserServiceImpl();
         Boolean aBoolean = userService.delSelect(uids);
         if(aBoolean) {
-            response.sendRedirect(request.getContextPath() + "/userServlet");
+            response.sendRedirect(request.getContextPath() + "/userSelectByPageServlet");
         } else {
             response.setContentType("text/html;charset=utf-8");
             response.getWriter().write("删除失败");
